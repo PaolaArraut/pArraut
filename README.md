@@ -1,6 +1,6 @@
 # Welcome to Paola Arraut's Web Portfolio Doc!
 #### (Pa-o-la) (A-rra-ut) is how you pronounce my name 
-*So not Paula araut*
+*So not Paula Araut*
 
 **It's within the process of development**,
 but here are some basic things you can expect!
