@@ -1,9 +1,11 @@
 import React, { useMemo } from "react";
 import { prepare, layout } from "@chenglou/pretext";
+import "./pages/loadingEntry.tsx";
 import "./App.css";
 
 function App(): React.JSX.Element {
-  const containerWidth = 400;
+  const containerWidth = 600;
+  const containerHeight = 30;
   const portfolioBio =
     "Computer Science student building high-performance web experiences. Currently exploring systems-first frontend layout engines and retro aesthetic designs.";
 
@@ -14,8 +16,8 @@ function App(): React.JSX.Element {
 
   // 2. Compute the exact bounding box (Only runs if the container width changes)
   const textLayout = useMemo(() => {
-    return layout(preparedText, containerWidth, 1.5); // text data, max width, line-height
-  }, [preparedText, containerWidth]);
+    return layout(preparedText, containerWidth, containerHeight, 1.5); // text data, max width, line-height
+  }, [preparedText, containerWidth, containerHeight]);
 
   return (
     <>
@@ -41,7 +43,7 @@ function App(): React.JSX.Element {
           {portfolioBio}
         </div>
 
-        <p style={{ marginTop: "20px", color: "#666" }}>
+        <p style={{ marginTop: "40px", color: "#666" }}>
           Rendered height: <strong>{textLayout.height}px</strong> across{" "}
           <strong>{textLayout.lineCount}</strong> lines.
         </p>
