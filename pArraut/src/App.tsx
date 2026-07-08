@@ -16,7 +16,7 @@ function App(): React.JSX.Element {
 
   // 2. Compute the exact bounding box (Only runs if the container width changes)
   const textLayout = useMemo(() => {
-    return layout(preparedText, containerWidth, containerHeight, 1.5); // text data, max width, line-height
+    return layout(preparedText, containerWidth, containerHeight); // text data, max width, line-height
   }, [preparedText, containerWidth, containerHeight]);
 
   return (
