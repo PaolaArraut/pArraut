@@ -11,17 +11,40 @@ interface FrameData {
   encodedFrames: Buffer;
   heightFrame: number;
   widthFrame: number;
+  curByte: number;
 }
 
 const frameData: FrameData = {
   encodedFrames: Buffer.from(fs.readFileSync("./public/assets/output_frames.bin")),
   heightFrame:24,
-  widthFrame:80, //Used ffmpeg to get the dimensions * Also credit to bad-apple pretext by frmlinn for indirectly introducing ffmpeg lol
+  widthFrame: 80,
+  curByte: 0,
 }
-for (let curByte = 0; curByte < frameData.encodedFrames.length; curByte++){
-  /*
- This is where each byte will be parsed into an ASCII character */
+function renderState(frameData: FrameData) {
+  //Map the pixel && luminence for the function
+
+
+  const fDimension: number = frameData.heightFrame * frameData.widthFrame;
+
+
+  while (frameData.curByte < fDimension) {
+    const windowF: Buffer = frameData.encodedFrames.subarray(frameData.curByte, fDimension + frameData.curByte) //start; end(offset by 1)
+
+    for (let row = 0; row < frameData.heightFrame; row++) {
+      for (let col = 0; col < frameData.widthFrame; col++) {
+
+        const ch = String.fromCharCode(windowF[row * frameData.widthFrame + col])
+        if (ch === " ") continue;
+      }
+    } // 2. Parse pixels to ASCII characters
+    // 3. Push string to cacheArray
+    // 4. Move currentByte pointer forward
+    //Goes through each byte in the encodedFrames buffer
+
+
+  }
 }
+renderState(frameData);
 
 //Currently learning and attempting to parse the bin into ascii characters
 //Further implementation would involve it being my name
