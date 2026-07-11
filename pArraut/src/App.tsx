@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { prepare, layout } from "@chenglou/pretext";
-import "./pages/loadingEntry.tsx";
+import "./pages/la.tsx";
 import "./App.css";
 
 function App(): React.JSX.Element {
