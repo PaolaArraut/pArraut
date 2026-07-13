@@ -5,7 +5,7 @@
 
 import * as fs from "fs";
 import { Buffer } from "buffer";
-import "./public/assets/output_frames.bin";
+
 
 interface FrameData {
   encodedFrames: Buffer;
@@ -13,9 +13,11 @@ interface FrameData {
   widthFrame: number;
   curByte: number;
 }
+const inputPath = "/Users/monkeylord/pArraut/pArraut/public/assets/output_frames.bin";
+const outputPath = "/Users/monkeylord/pArraut/pArraut/public/assets/animation.bin";
 
 const frameData: FrameData = {
-  encodedFrames: Buffer.from(fs.readFileSync("./public/assets/output_frames.bin")),
+  encodedFrames: Buffer.from(fs.readFileSync(inputPath)),
   heightFrame:24,
   widthFrame: 80,
   curByte: 0,
@@ -23,39 +25,45 @@ const frameData: FrameData = {
 function renderState(frameData: FrameData) {
   //Map the pixel && luminence for the function
   //
-  const name: String = "PaolaArraut";
+  const name: string = "PaolaArraut";
   let namePointer: number = 0; //tracks the current character in the name
   const cacheArray: string[] = []; //stores the parsed name chars
   const fDimension: number = frameData.heightFrame * frameData.widthFrame;
 
 
-  while (frameData.curByte < frameData.encodedFrames.length) {
-    let frameStr : string = "";
+  while (frameData.curByte < frameData.encodedFrames.length) {// 2. Parse pixels to my name lol characters
+    let frameStr: string = "";
     const windowF: Buffer = frameData.encodedFrames.subarray(frameData.curByte, fDimension + frameData.curByte) //start; end(offset by 1)
 
     for (let row = 0; row < frameData.heightFrame; row++) {
       for (let col = 0; col < frameData.widthFrame; col++) {
 
         const pixel = windowF[row * frameData.widthFrame + col] //calculate pixel value
-        const THRESHOLD = [0, ...45]
+        const subIndex = namePointer % name.length;
+        const subChar = name[subIndex];
 
        //Aggregating a range threshold for luminance
-        for (namePointer < name.length){
-            frameData.curByte++;
-            namePointer++;
-
+          if (pixel <= 45) {
+            frameStr += " ";
           }
-        }
-        */
+          else if (pixel > 45 && pixel <= 160) {
+            frameStr += subChar.toLowerCase(); //points to the lower case var
+            namePointer++;
+          }
+          else{
+          frameStr += subChar.toUpperCase();
+          namePointer++;
+          }
     }
-    } // 2. Parse pixels to my name lol characters
-  }// 3. Push string to cacheArray
-    // 4. Move currentByte pointer forward
-    //Goes through each byte in the encodedFrames buffer
+    }
+    cacheArray.push(frameStr); //Pre-compiles for viewing
+    frameData.curByte+= fDimension; //move onto the next frame
+  }
 
-
+  const result = cacheArray.join("\n");
+  const resultBuffer = Buffer.from(result, "utf-8");
+  return resultBuffer;
 }
-renderState(frameData);
 
-//Currently learning and attempting to parse the bin into ascii characters
-//Further implementation would involve it being my name
+fs.writeFileSync(outputPath, renderState(frameData));
+console.log("Success! Compiled animation.bin written to public/assets/");

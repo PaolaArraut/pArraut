@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { prepare, layout } from "@chenglou/pretext";
-import "./pages/la.tsx";
+import "./pages/landingPageView.tsx";
 import "./App.css";
 
 function App(): React.JSX.Element {
@@ -28,14 +28,13 @@ function App(): React.JSX.Element {
           fontFamily: "'Courier New', monospace",
         }}
       >
-        {/* A Neobrutalist container shaped entirely by Pretext's geometry */}
         <div
           style={{
             width: `${containerWidth}px`,
             height: `${textLayout.height}px`, // No browser layout reflow!
-            border: "3px solid #000000",
+            border: "2px solid #000000",
             padding: "12px",
-            backgroundColor: "#ffffff",
+            backgroundColor: "292F36",
             boxShadow: "8px 8px 0px #000000",
             overflow: "hidden",
           }}
