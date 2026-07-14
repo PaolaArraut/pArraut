@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo } from "react";
-
+import React from "react";
+import Animation from "../components/animation.tsx";
 
 /*
 Actions Items:
@@ -11,9 +11,8 @@ function LandingPageView(): React.JSX.Element {
 
   return (
     <div>
-      use
       <h1> hello World</h1>
-      console.log('hello World');
+      <Animation />
     </div>
   );
 }
