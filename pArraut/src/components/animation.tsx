@@ -1,24 +1,29 @@
 import React from "react";
-import { useState, useEffect, useMemo } from "react";
-import 'pArraut/public/assets/animation.bin'
-
-const ANIMATION_PATH = 'pArraut/public/assets/animation.bin';
-
-
+import { useState, useEffect } from "react";
 
 function Animation() {
   const [frames, setFrames] = useState<string[]>([])
-  const { frameIndex, setFrameIndex } = useState(0);
+  const [frameIndex, setFrameIndex] = useState(0);
 
-  const useEffect
+  useEffect(() => {
+    const load = async () => {
+      const response = await fetch('/assets/animation.bin');
+      if (!response.ok) {
+        console.error('Server returned an error:', response.status);
+        return;
+      }
+      const data = await response.text();
+      setFrames(data.split('\n'));
+    };
 
+    load();
+  }, []);
 
+  return (
+    <div>
 
-  //For the animation I need to fetch the bin
-  // split into frames
-  // Then advance on a timer within 30 FPS
-
-  return null;
+    </div>
+  );
 }
 
 export default Animation;
