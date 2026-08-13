@@ -1,8 +1,7 @@
-
 /*If your wondering why I chose to opt out of tailwind..
-I like the pain :)*/
+I wanted to use the pretext API to avoid DOM layout reflows and also because it's genius :) */
 
-:root{
- --background: #292F36;
- --foreground: #E0DBD8;
+:root {
+    --background: #292f36;
+    --foreground: #e0dbd8;
 }
